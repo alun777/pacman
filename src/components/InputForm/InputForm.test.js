@@ -1,11 +1,10 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { fromJS } from 'immutable';
 import { InputForm, mapStateToProps, mapDispatchToProps } from './InputForm';
 import { actionCreators } from './store/index';
-import { exportAllDeclaration } from '@babel/types';
-import { Container, Divider, Header, Message, Form } from 'semantic-ui-react';
+import { Message, Form } from 'semantic-ui-react';
 
 Enzyme.configure({ adapter: new Adapter() });
 

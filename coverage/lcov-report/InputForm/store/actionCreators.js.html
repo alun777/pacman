@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>68/68</span>
+        <span class='fraction'>66/66</span>
       </div>
     </div>
     <p class="quiet">
@@ -226,8 +226,7 @@
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -243,10 +242,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -325,7 +333,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -358,8 +366,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -397,197 +403,188 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { constants } from './index';
 &nbsp;
-//Handle textarea input change
-export const handleInputChangeAction = event =&gt; ({
+// Handle textarea input change
+export const handleInputChangeAction = (event) =&gt; ({
   type: constants.CHANGE_INPUT_VALUE,
-  event
+  event,
 });
 &nbsp;
 // Set the final position as the output
-const updateNewPosition = positionOutput =&gt; ({
+const updateNewPosition = (positionOutput) =&gt; ({
   type: constants.CHANGE_POSITION_DATA,
-  positionOutput
+  positionOutput,
 });
 &nbsp;
-//Handle LEFT, RIGHT, MOVE commands
+// Set error message
+const handleErrorMessage = (error) =&gt; ({
+  type: constants.CHANGE_ERROR_MESSAGE,
+  error,
+});
+&nbsp;
+// Handle LEFT, RIGHT, MOVE commands
 const handleCommands = (positionOutput, formatCommands) =&gt; {
-  //Start to iterate from commands after PLACE value
+  const newPosition = positionOutput;
+  // Start to iterate from commands after PLACE value
+  /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   for (let i = 2; i &lt; formatCommands.length; i++) {
-    //Change face position if there is a LEFT command
+    // Change face position if there is a LEFT command
     if (formatCommands[i] === 'LEFT') {
-      switch (positionOutput.facePosition) {
+      /* eslint default-case: "off" */
+      switch (newPosition.facePosition) {
         case 'NORTH':
-          positionOutput.facePosition = 'WEST';
+          newPosition.facePosition = 'WEST';
           break;
         case 'SOUTH':
-          positionOutput.facePosition = 'EAST';
+          newPosition.facePosition = 'EAST';
           break;
         case 'EAST':
-          positionOutput.facePosition = 'NORTH';
+          newPosition.facePosition = 'NORTH';
           break;
         case 'WEST':
-          positionOutput.facePosition = 'SOUTH';
+          newPosition.facePosition = 'SOUTH';
           break;
       }
     }
 &nbsp;
-    //Change face position if there is a RIGHT command
+    // Change face position if there is a RIGHT command
     if (formatCommands[i] === 'RIGHT') {
-      switch (positionOutput.facePosition) {
+      switch (newPosition.facePosition) {
         case 'NORTH':
-          positionOutput.facePosition = 'EAST';
+          newPosition.facePosition = 'EAST';
           break;
         case 'SOUTH':
-          positionOutput.facePosition = 'WEST';
+          newPosition.facePosition = 'WEST';
           break;
         case 'EAST':
-          positionOutput.facePosition = 'SOUTH';
+          newPosition.facePosition = 'SOUTH';
           break;
         case 'WEST':
-          positionOutput.facePosition = 'NORTH';
+          newPosition.facePosition = 'NORTH';
           break;
       }
     }
 &nbsp;
     /*
       Change to new position when there is a MOVE command
-      Ignore MOVE commands that move off the grid 
+      Ignore MOVE commands that move off the grid
     */
     if (formatCommands[i] === 'MOVE') {
-      switch (positionOutput.facePosition) {
+      switch (newPosition.facePosition) {
         case 'NORTH':
-          if (positionOutput.yPosition === 4) {
+          if (newPosition.yPosition === 4) {
             break;
           } else {
-            positionOutput.yPosition += 1;
+            newPosition.yPosition += 1;
             break;
           }
         case 'WEST':
-          if (positionOutput.xPosition === 0) {
+          if (newPosition.xPosition === 0) {
             break;
           } else {
-            positionOutput.xPosition -= 1;
+            newPosition.xPosition -= 1;
             break;
           }
         case 'SOUTH':
-          if (positionOutput.yPosition === 0) {
+          if (newPosition.yPosition === 0) {
             break;
           } else {
-            positionOutput.yPosition -= 1;
+            newPosition.yPosition -= 1;
             break;
           }
         case 'EAST':
-          if (positionOutput.xPosition === 4) {
+          if (newPosition.xPosition === 4) {
             break;
           } else {
-            positionOutput.xPosition += 1;
+            newPosition.xPosition += 1;
             break;
           }
       }
     }
 &nbsp;
-    //Return output when there is a REPORT command
+    // Return output when there is a REPORT command
     if (formatCommands[i] === 'REPORT') {
-      return positionOutput;
+      return newPosition;
     }
   }
 };
 &nbsp;
-export const handleButtonSubmitAction = textareaInput =&gt; {
-  return dispatch =&gt; {
-    //Set default position value
-    let positionOutput = {
-      facePosition: '',
-      xPosition: 0,
-      yPosition: 0,
-      placeValid: false
-    };
 &nbsp;
-    //Check if commands can be converted into an array
-    const commands = textareaInput.search(/\s/g);
-    if (commands === -1) {
-      dispatch(handleErrorMessage('Please enter some valid commands.'));
-      return;
-    }
+export const handleButtonSubmitAction = (textareaInput) =&gt; (dispatch) =&gt; {
+  // Set default position value
+  let positionOutput = {
+    facePosition: '',
+    xPosition: 0,
+    yPosition: 0,
+    placeValid: false,
+  };
 &nbsp;
-    //Format commands in an array in order to iterate
-    let formatCommands = textareaInput
-      .replace(/\s/g, ' ')
-      .toUpperCase()
-      .split(' ');
+  // Check if commands can be converted into an array
+  const commands = textareaInput.search(/\s/g);
+  if (commands === -1) {
+    dispatch(handleErrorMessage('Please enter some valid commands.'));
+    return;
+  }
 &nbsp;
-    //Ignore all commands until there is a PLACE command
-    const lastPlaceIndex = formatCommands.lastIndexOf('PLACE');
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (lastPlaceIndex !== -1) {
-      formatCommands = formatCommands.slice(lastPlaceIndex);
-    }
+  // Format commands in an array in order to iterate
+  let formatCommands = textareaInput
+    .replace(/\s/g, ' ')
+    .toUpperCase()
+    .split(' ');
 &nbsp;
-    /*Check if the place command is valid and not off the 5*5 grid
+  // Ignore all commands until there is a PLACE command
+  const lastPlaceIndex = formatCommands.lastIndexOf('PLACE');
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (lastPlaceIndex !== -1) {
+    formatCommands = formatCommands.slice(lastPlaceIndex);
+  }
+&nbsp;
+  /* Check if the place command is valid and not off the 5*5 grid
      placePosition[0] represents x position
      placePosition[1] represents y position
      placePosition[2] represents face position
     */
-    let placePosition = formatCommands[1].split(',');
+  const placePosition = formatCommands[1].split(',');
+  if (
+    placePosition[0] &lt;= 4
+    &amp;&amp; placePosition[0] &gt;= 0
+    &amp;&amp; placePosition[1] &lt;= 4
+    &amp;&amp; placePosition[1] &gt;= 0
+    &amp;&amp; ['NORTH', 'SOUTH', 'EAST', 'WEST'].indexOf(placePosition[2] !== -1)
+    &amp;&amp; !positionOutput.placeValid
+  ) {
+    positionOutput = {
+      facePosition: placePosition[2],
+      xPosition: parseInt(placePosition[0], 10),
+      yPosition: parseInt(placePosition[1], 10),
+      placeValid: true,
+    };
+  } else {
+    // Issue error message when there is no valid place entered
+    dispatch(
+      handleErrorMessage('Please enter a valid PLACE in your commands.'),
+    );
+    return;
+  }
 &nbsp;
-    console.log(formatCommands);
-    if (
-      placePosition[0] &lt;= 4 &amp;&amp;
-      placePosition[0] &gt;= 0 &amp;&amp;
-      placePosition[1] &lt;= 4 &amp;&amp;
-      placePosition[1] &gt;= 0 &amp;&amp;
-      ['NORTH', 'SOUTH', 'EAST', 'WEST'].indexOf(placePosition[2] !== -1) &amp;&amp;
-      !positionOutput.placeValid
-    ) {
-      positionOutput = {
-        facePosition: placePosition[2],
-        xPosition: parseInt(placePosition[0], 10),
-        yPosition: parseInt(placePosition[1], 10),
-        placeValid: true
-      };
-    } else {
-      //Issue error message when there is no valid place entered
-      dispatch(
-        handleErrorMessage('Please enter a valid PLACE in your commands.')
-      );
-      return;
-    }
+  // handle rest commands after a valid PLACE
+  positionOutput = handleCommands(positionOutput, formatCommands);
 &nbsp;
-    //handle rest commands after a valid PLACE
-    positionOutput = handleCommands(positionOutput, formatCommands);
-&nbsp;
-    //Issue error message if there is no REPORT command
-    if (positionOutput) {
-      dispatch(updateNewPosition(positionOutput));
-    } else {
-      dispatch(
-        handleErrorMessage('Please have a REPORT command to show the result')
-      );
-    }
-  };
-};
-&nbsp;
-const handleErrorMessage = error =&gt; {
-  return {
-    type: constants.CHANGE_ERROR_MESSAGE,
-    error
-  };
+  // Issue error message if there is no REPORT command
+  if (positionOutput) {
+    dispatch(updateNewPosition(positionOutput));
+  } else {
+    dispatch(
+      handleErrorMessage('Please have a REPORT command to show the result'),
+    );
+  }
 };
 &nbsp;
 export const handleResetAction = () =&gt; ({
-  type: constants.RESET_INPUT
+  type: constants.RESET_INPUT,
 });
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -595,7 +592,7 @@ export const handleResetAction = () =&gt; ({
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 03 2019 11:08:50 GMT+1000 (Australian Eastern Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 03 2019 12:45:12 GMT+1000 (Australian Eastern Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

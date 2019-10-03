@@ -1,6 +1,9 @@
 
 # Pacman simulator
 
+IE code task
+ 
+Hosted Here: [https://alun777.github.io/pacman/](https://alun777.github.io/pacman/)
 ## Tech stack
 
 - JavaScript

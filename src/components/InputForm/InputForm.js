@@ -26,7 +26,7 @@ export const InputForm = ({
         <Message.Header>
           <p>
             The source code of this tool can be found{' '}
-            <a href='https://github.com/alun777/react-geocode' target='_blank'>
+            <a href='https://github.com/alun777/pacman' target='_blank'>
               HERE
             </a>
             .
