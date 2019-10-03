@@ -41,7 +41,7 @@ export const InputForm = ({
         </Message.Item>
         <Message.Item>
           Commands are case-insensitive but be aware of the white space between
-          them{' '}
+          them.{' '}
         </Message.Item>
         <p>
           {' '}
