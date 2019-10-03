@@ -5,10 +5,16 @@ import PropTypes from 'prop-types';
 
 import { Container, Divider, Header, Message, Form } from 'semantic-ui-react';
 
-const InputForm = ({
+export const InputForm = ({
   textareaInput,
   handleInputChange,
-  handleButtonSubmit
+  handleButtonSubmit,
+  handleResetButton,
+  placeValid,
+  facePosition,
+  xPosition,
+  yPosition,
+  error
 }) => {
   return (
     <Container>
@@ -29,44 +35,64 @@ const InputForm = ({
       <Form onSubmit={() => handleButtonSubmit(textareaInput)}>
         <Form.TextArea
           name='input'
-          placeholder='Input here'
+          placeholder='Input your commands here'
+          rows='10'
           onChange={handleInputChange}
           value={textareaInput}
         />
         <Form.Group inline>
           <Form.Button primary>Submit</Form.Button>
-          <Form.Button>Reset</Form.Button>
+          <Form.Button type='button' onClick={handleResetButton}>
+            Reset
+          </Form.Button>
         </Form.Group>
       </Form>
-      <Message>
-        <Message.Header>Form data:</Message.Header>
+      <Message className={error ? 'error' : ''}>
+        <p>Result:</p>
+        {placeValid && !error && (
+          <p>
+            Output: {xPosition},{yPosition},{facePosition}
+          </p>
+        )}
+        {error && <p>{error}</p>}
       </Message>
     </Container>
   );
 };
 
-const handleCommands = textareaInput => {
-  let commandArray = textareaInput.replace(/\n/g, ' ').split(' ');
-  console.log(commandArray);
-};
-
 export const mapStateToProps = state => ({
-  textareaInput: state.getIn(['InputForm', 'textareaInput'])
+  textareaInput: state.getIn(['InputForm', 'textareaInput']),
+  placeValid: state.getIn(['InputForm', 'placeValid']),
+  facePosition: state.getIn(['InputForm', 'facePosition']),
+  xPosition: state.getIn(['InputForm', 'xPosition']),
+  yPosition: state.getIn(['InputForm', 'yPosition']),
+  error: state.getIn(['InputForm', 'error'])
 });
 
 export const mapDispatchToProps = dispatch => ({
   handleInputChange(event) {
+    event.persist();
     dispatch(actionCreators.handleInputChangeAction(event));
   },
   handleButtonSubmit(textareaInput) {
-    handleCommands(textareaInput);
-
-    // const action = {};
-    // dispatch(action);
+    dispatch(actionCreators.handleButtonSubmitAction(textareaInput));
+  },
+  handleResetButton() {
+    dispatch(actionCreators.handleResetAction());
   }
 });
 
-InputForm.propTypes = {};
+InputForm.propTypes = {
+  textareaInput: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleButtonSubmit: PropTypes.func.isRequired,
+  handleResetButton: PropTypes.func.isRequired,
+  placeValid: PropTypes.bool.isRequired,
+  facePosition: PropTypes.string.isRequired,
+  xPosition: PropTypes.number.isRequired,
+  yPosition: PropTypes.number.isRequired,
+  error: PropTypes.string.isRequired
+};
 
 export default connect(
   mapStateToProps,
