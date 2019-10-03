@@ -28,7 +28,7 @@ Hosted Here: [https://alun777.github.io/pacman/](https://alun777.github.io/pacma
 - Jest + Enzyme
 - Test Coverage: 100%
 - `npm run test:coverage` to check the test coverage
-- `test:watch` to check the test result
+- `npm run test:watch` to check the test result
 
 ### Linting
 
