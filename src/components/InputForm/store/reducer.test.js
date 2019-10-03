@@ -7,7 +7,7 @@ const defaultState = {
   xPosition: 0,
   yPosition: 0,
   placeValid: false,
-  error: ''
+  error: '',
 };
 
 it('should return the initial state', () => {
@@ -19,10 +19,10 @@ describe('it should handle correct action types', () => {
     expect(
       reducer(fromJS(defaultState), {
         type: constants.CHANGE_INPUT_VALUE,
-        event: { target: { value: 'PLACE 2,2,SOUTH REPORT TEST' } }
-      })
+        event: { target: { value: 'PLACE 2,2,SOUTH REPORT TEST' } },
+      }),
     ).toEqual(
-      fromJS({ ...defaultState, textareaInput: 'PLACE 2,2,SOUTH REPORT TEST' })
+      fromJS({ ...defaultState, textareaInput: 'PLACE 2,2,SOUTH REPORT TEST' }),
     );
   });
 
@@ -35,9 +35,9 @@ describe('it should handle correct action types', () => {
           facePosition: 'NORTH',
           xPosition: 2,
           yPosition: 3,
-          placeValid: true
-        }
-      })
+          placeValid: true,
+        },
+      }),
     ).toEqual(
       fromJS({
         ...defaultState,
@@ -45,8 +45,8 @@ describe('it should handle correct action types', () => {
         facePosition: 'NORTH',
         xPosition: 2,
         yPosition: 3,
-        placeValid: true
-      })
+        placeValid: true,
+      }),
     );
   });
 
@@ -54,16 +54,16 @@ describe('it should handle correct action types', () => {
     expect(
       reducer(fromJS(defaultState), {
         type: constants.CHANGE_ERROR_MESSAGE,
-        error: true
-      })
+        error: true,
+      }),
     ).toEqual(fromJS({ ...defaultState, error: true }));
   });
 
   it('should handle constants.RESET_INPUT', () => {
     expect(
       reducer(fromJS(defaultState), {
-        type: constants.RESET_INPUT
-      })
+        type: constants.RESET_INPUT,
+      }),
     ).toEqual(fromJS({ ...defaultState }));
   });
 });

@@ -9,14 +9,14 @@ it('should create an action to handle input change', () => {
   const event = 'PLACE XYF';
   const expectedAction = {
     type: constants.CHANGE_INPUT_VALUE,
-    event
+    event,
   };
   expect(actionCreators.handleInputChangeAction(event)).toEqual(expectedAction);
 });
 
 it('should create an action to reset input', () => {
   const expectedAction = {
-    type: constants.RESET_INPUT
+    type: constants.RESET_INPUT,
   };
   expect(actionCreators.handleResetAction()).toEqual(expectedAction);
 });
@@ -30,8 +30,8 @@ describe('handle submit button actions', () => {
     expect(store.getActions()).toEqual([
       {
         type: constants.CHANGE_ERROR_MESSAGE,
-        error: 'Please enter some valid commands.'
-      }
+        error: 'Please enter some valid commands.',
+      },
     ]);
   });
 
@@ -39,14 +39,14 @@ describe('handle submit button actions', () => {
     const store = mockStore({});
 
     store.dispatch(
-      actionCreators.handleButtonSubmitAction('PLACE 4,5,EAST REPORT')
+      actionCreators.handleButtonSubmitAction('PLACE 4,5,EAST REPORT'),
     );
 
     expect(store.getActions()).toEqual([
       {
         type: constants.CHANGE_ERROR_MESSAGE,
-        error: 'Please enter a valid PLACE in your commands.'
-      }
+        error: 'Please enter a valid PLACE in your commands.',
+      },
     ]);
   });
 
@@ -54,14 +54,14 @@ describe('handle submit button actions', () => {
     const store = mockStore({});
 
     store.dispatch(
-      actionCreators.handleButtonSubmitAction('PLACE 2,2,EAST MOVE LEFT')
+      actionCreators.handleButtonSubmitAction('PLACE 2,2,EAST MOVE LEFT'),
     );
 
     expect(store.getActions()).toEqual([
       {
         type: constants.CHANGE_ERROR_MESSAGE,
-        error: 'Please have a REPORT command to show the result'
-      }
+        error: 'Please have a REPORT command to show the result',
+      },
     ]);
   });
 
@@ -70,8 +70,8 @@ describe('handle submit button actions', () => {
 
     store.dispatch(
       actionCreators.handleButtonSubmitAction(
-        'PLACE 2,2,EAST MOVE  PLACE 3,0,WEST LEFT REPORT'
-      )
+        'PLACE 2,2,EAST MOVE  PLACE 3,0,WEST LEFT REPORT',
+      ),
     );
 
     expect(store.getActions()).toEqual([
@@ -81,9 +81,9 @@ describe('handle submit button actions', () => {
           facePosition: 'SOUTH',
           xPosition: 3,
           yPosition: 0,
-          placeValid: true
-        }
-      }
+          placeValid: true,
+        },
+      },
     ]);
   });
 
@@ -101,8 +101,8 @@ describe('handle submit button actions', () => {
           MOVE MOVE MOVE MOVE MOVE
 
           REPORT
-        `
-      )
+        `,
+      ),
     );
 
     expect(store.getActions()).toEqual([
@@ -112,9 +112,9 @@ describe('handle submit button actions', () => {
           facePosition: 'NORTH',
           xPosition: 0,
           yPosition: 4,
-          placeValid: true
-        }
-      }
+          placeValid: true,
+        },
+      },
     ]);
   });
 });

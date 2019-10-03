@@ -23,14 +23,33 @@ export const InputForm = ({
         Pacman Simulator
       </Header>
       <Message info>
+        <Message.Header>
+          <p>
+            The source code of this tool can be found{' '}
+            <a href='https://github.com/alun777/react-geocode' target='_blank'>
+              HERE
+            </a>
+            .
+          </p>
+          <p>
+            Instruction: create an application that can read in commands of the
+            following form and rules.
+          </p>
+        </Message.Header>
+        <Message.Item>
+          <span>PLACE X,Y,F MOVE LEFT RIGHT REPORT</span>
+        </Message.Item>
+        <Message.Item>
+          Commands are case-insensitive but be aware of the white space between
+          them{' '}
+        </Message.Item>
         <p>
-          The source code of this tool can be found{' '}
-          <a href='https://github.com/alun777/react-geocode' target='_blank'>
-            HERE
-          </a>
-          .
+          {' '}
+          Example:
+          <p>PLACE 1,2,EAST MOVE MOVE LEFT MOVE REPORT</p>
+          will give you
+          <p>Output: 3,3,NORTH</p>
         </p>
-        <p>Instruction: </p>
       </Message>
       <Form onSubmit={() => handleButtonSubmit(textareaInput)}>
         <Form.TextArea

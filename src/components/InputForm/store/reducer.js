@@ -7,7 +7,7 @@ const defaultState = fromJS({
   xPosition: 0,
   yPosition: 0,
   placeValid: false,
-  error: ''
+  error: '',
 });
 
 export default (state = defaultState, action) => {
@@ -18,7 +18,7 @@ export default (state = defaultState, action) => {
     case constants.CHANGE_POSITION_DATA:
       return state.merge({
         ...action.positionOutput,
-        error: ''
+        error: '',
       });
 
     case constants.CHANGE_ERROR_MESSAGE:
